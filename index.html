@@ -94,6 +94,11 @@
             type="number"
             value="4500"
           />
+          <label for="mask-path-select">Texture Overlay</label>
+          <select id="mask-path-select" name="path-input">
+            <option value="" selected>None</option>
+            <option value="./assets/worn.jpg">worn.jpg</option>
+          </select>
           <label for="css-input">Additional CSS</label>
           <textarea id="css-input" name="css"></textarea>
         </details>
@@ -114,6 +119,7 @@
       const textInput = document.getElementById("text-input");
       const fontSizeInput = document.getElementById("font-size-input");
       const previewBgInput = document.getElementById("preview-bg-input");
+      const maskPathInput = document.getElementById("mask-path-select");
       const cssInput = document.getElementById("css-input");
       const fileSizeInput = document.getElementById("file-size-input");
       const textInputs = [
@@ -121,6 +127,7 @@
         fontSizeInput,
         previewBgInput,
         fileSizeInput,
+        maskPathInput,
         cssInput,
       ];
 
@@ -160,7 +167,7 @@
           )
         );
 
-        const [text, fontSize, previewBg, _, css] = textInputs.map(
+        const [text, fontSize, previewBg, fileSize, mask, css] = textInputs.map(
           (input) => input.value
         );
 
@@ -170,6 +177,7 @@
           text,
           fontSize,
           previewBg,
+          mask,
           css,
         });
 

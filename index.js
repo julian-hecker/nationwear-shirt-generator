@@ -33,6 +33,7 @@ function populateTemplate({
   text,
   fontSize,
   previewBg,
+  mask,
   css,
 }) {
   return `<!DOCTYPE html>
@@ -40,8 +41,7 @@ function populateTemplate({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NationWear Shirt Generator</title>
-    <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
+    <title>${text}</title>
     <style>
       html, body {
         height: 100%;
@@ -52,7 +52,7 @@ function populateTemplate({
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background-color: ${previewBg};
+        ${previewBg ? `background-color: ${previewBg}` : ""};
         color: #eee;
       }
 
@@ -63,7 +63,7 @@ function populateTemplate({
       }
 
       .mask {
-        mask-image: url("./assets/worn.jpg");
+        ${mask ? `mask-image: url(${mask})` : ""};
         mask-mode: luminance;
         mask-size: cover;
         mask-position: center;
@@ -137,7 +137,11 @@ function populateTemplate({
 
       <div class="container mask">
         <!-- invisible image sets aspect ratio for flag bg -->
-        <img src="${background}" style="width: 100%; opacity: 0" />
+        ${
+          background
+            ? `<img src="${background}" style="width: 100%; opacity: 0" />`
+            : ""
+        }
         <!-- text unmasked by country map, goes "behind" it -->
         <!-- flag background masked by country map -->
         <div class="flag country-overlay absolute-fill"></div>
